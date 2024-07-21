@@ -51,11 +51,13 @@ model Blog {
   userId String
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  comments Comment[]
 
   categoryId Int
   Category   Category @relation(fields: [categoryId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@index([title])
   @@index([userId])
@@ -72,8 +74,8 @@ model BlogTags {
   blogId Int
   tagId  Int
 
-  blog Blog @relation(fields: [blogId], references: [id])
-  tag  Tag  @relation(fields: [tagId], references: [id])
+  blog Blog @relation(fields: [blogId], references: [id], onDelete: Cascade)
+  tag  Tag  @relation(fields: [tagId], references: [id], onDelete: Cascade)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -85,28 +87,39 @@ model Comment {
   id Int @id @default(autoincrement())
 
   userId String
-  user   User   @relation(fields: [userId], references: [id])
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   isEdited Boolean @db.TinyInt
   content  String  @db.Text
 
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  replies   Replies[]
+  blogId Int
+  blog   Blog @relation(fields: [blogId], references: [id], onDelete: Cascade)
+
+  replies Replies[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Replies {
   id Int @id @default(autoincrement())
 
   userId String
-  user   User   @relation(fields: [userId], references: [id])
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   commentId Int
-  comment   Comment @relation(fields: [commentId], references: [id])
+  comment   Comment @relation(fields: [commentId], references: [id], onDelete: Cascade)
 
   isEdited Boolean @db.TinyInt
   content  String  @db.Text
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model Subscribers {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  email     String   @db.VarChar(50)
 }

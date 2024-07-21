@@ -17,7 +17,7 @@ const HomePageHeader = () => {
           temporibus fugit cumque hic.
         </p>
         <SearchBar />
-        <div className='flex flex-col md:flex-row text-xl items-center md:gap-2'>
+        <div className='flex flex-col sm:flex-row text-xl items-center gap-2'>
           <span className='text-zinc-500 font-semibold'>Popular Tags:</span>
           <div className='flex flex-wrap gap-2'>
             {['design', 'ui', 'java'].map((tag) => (

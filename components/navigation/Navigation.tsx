@@ -5,17 +5,15 @@ import React, { useEffect, useState } from 'react';
 import logo from '../../public/logo.png';
 import { navigationLinks } from '@/lib/constants';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import MobileNav from './MobileNav';
 
 const Navigation = () => {
-  const pathName = usePathname();
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY) {
+      if (window.scrollY > 48) {
         setIsScrolled(true);
       } else if (window.scrollY < 48) {
         setIsScrolled(false);
@@ -44,23 +42,20 @@ const Navigation = () => {
         )}
       />
       <div className='hidden md:flex  gap-7 transition'>
-        {navigationLinks.map(({ path, label }) => {
-          const isCurrentPath = pathName === path;
-          return (
-            <div className='flex group flex-col w-fit'>
-              <Link
-                href={path}
-                className={cn(
-                  'text-blue-primary-light w-fit hover:text-blue-primary-light/90 transition text-2xl',
-                  isScrolled && 'text-white hover:text-gray-100'
-                )}
-              >
-                {label}
-              </Link>
-              <div className='h-[1px] mx-auto origin-center w-0 group-hover:w-full transition-all duration-300 bg-blue-primary-light'></div>
-            </div>
-          );
-        })}
+        {navigationLinks.map(({ path, label }) => (
+          <div className='flex group flex-col w-fit'>
+            <Link
+              href={path}
+              className={cn(
+                'text-blue-primary-light w-fit hover:text-blue-primary-light/90 transition text-xl',
+                isScrolled && 'text-white hover:text-gray-100'
+              )}
+            >
+              {label}
+            </Link>
+            <div className='h-[1px] mx-auto origin-center w-0 group-hover:w-full transition-all duration-300 bg-blue-primary-light' />
+          </div>
+        ))}
       </div>
       <MobileNav isScrolled={isScrolled} />
     </nav>

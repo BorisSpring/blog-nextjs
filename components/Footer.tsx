@@ -5,7 +5,7 @@ import { footerLinks } from '@/lib/constants';
 
 const Footer = () => {
   return (
-    <footer className='flex flex-col-reverse lg:p-10 border-t  justify-between items-center md:items-start md:flex-row  bg-blue-primary-dark p-5'>
+    <footer className='flex flex-col-reverse  lg:p-10 border-t  justify-between items-center md:items-start md:flex-row  bg-blue-primary-dark p-5'>
       <div className='w-[263px]  h-[143px] flex flex-col text-center text-zinc-300 items-center justify-center gap-4'>
         <Image
           src={LightLogo}
@@ -36,7 +36,7 @@ const Footer = () => {
                   <span className='text-[#959EAD] text-base font-medium'>
                     {link}
                   </span>
-                  <div className='h-[1px] bg-[#959EAD] m-auto w-[0.1px] transition group-hover:w-full origin-center' />
+                  <div className='h-[1px] bg-[#959EAD] mx-auto w-0 transition-all duration-300 group-hover:w-full origin-center' />
                 </div>
               ))}
             </div>

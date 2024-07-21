@@ -1,0 +1,112 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  ADMIN
+  GUEST
+}
+
+model User {
+  id        String  @id @default(uuid())
+  clerkId   String  @unique
+  firstName String  @db.Text
+  lastName  String  @db.Text
+  email     String  @db.Text
+  enabled   Boolean @db.TinyInt
+  role      Role    @default(GUEST)
+
+  comments Comment[]
+  blogs    Blog[]
+  replies  Replies[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([clerkId])
+}
+
+model Tag {
+  id    Int        @id @default(autoincrement())
+  name  String     @db.VarChar(20)
+  blogs BlogTags[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Blog {
+  id          Int    @id @default(autoincrement())
+  title       String @db.VarChar(255)
+  description String @db.Text
+  body        String @db.Text
+
+  tags BlogTags[]
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  categoryId Int
+  Category   Category @relation(fields: [categoryId], references: [id])
+
+  @@index([title])
+  @@index([userId])
+}
+
+model Category {
+  id   Int    @id @default(autoincrement())
+  name String @db.VarChar(20)
+
+  blogs Blog[]
+}
+
+model BlogTags {
+  blogId Int
+  tagId  Int
+
+  blog Blog @relation(fields: [blogId], references: [id])
+  tag  Tag  @relation(fields: [tagId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@id([blogId, tagId])
+}
+
+model Comment {
+  id Int @id @default(autoincrement())
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
+
+  isEdited Boolean @db.TinyInt
+  content  String  @db.Text
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  replies   Replies[]
+}
+
+model Replies {
+  id Int @id @default(autoincrement())
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
+
+  commentId Int
+  comment   Comment @relation(fields: [commentId], references: [id])
+
+  isEdited Boolean @db.TinyInt
+  content  String  @db.Text
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

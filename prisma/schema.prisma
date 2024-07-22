@@ -45,6 +45,7 @@ model Blog {
   title       String @db.VarChar(255)
   description String @db.Text
   body        String @db.Text
+  views       Int    @default(0)
 
   tags BlogTags[]
 

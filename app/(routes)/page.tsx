@@ -1,6 +1,5 @@
 import CallToAction from '@/components/CallToAction';
 import BlogCard from '@/components/cards/BlogCard';
-import Footer from '@/components/Footer';
 import HomePageHeader from '@/components/HomePageHeader';
 import React from 'react';
 
@@ -16,7 +15,6 @@ const RootPage = () => {
         </div>
       </div>
       <CallToAction />
-      <Footer />
     </main>
   );
 };

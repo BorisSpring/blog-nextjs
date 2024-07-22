@@ -7,14 +7,20 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb';
-import BlogImage from '../../../public/blog.jpg';
+import BlogImage from '../../../../public/blog.jpg';
 import Image from 'next/image';
 import CommentForm from '@/components/forms/CommentForm';
 import CommentSection from '@/components/CommentSection';
 import LatestArticles from '@/components/LatestArticles';
 import TagsSection from '@/components/TagsSection';
 
-const SingleBlogPage = () => {
+interface Props {
+  params: {
+    blogId: string;
+  };
+}
+
+const SingleBlogPage = async ({ params }: Props) => {
   return (
     <div className='grid grid-cols-1 xl:grid-cols-3 container mb-12 lg:mb-24 relative'>
       <section className='flex flex-col gap-5 lg:gap-8  mt-8 lg:col-span-2'>

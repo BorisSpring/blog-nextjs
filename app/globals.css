@@ -6,6 +6,12 @@
   .no-focus {
     @apply focus-visible:ring-0 focus-visible:ring-offset-0  focus:ring-0 !important;
   }
+  .zinc-sm {
+    @apply min-w-[137px] flex items-center gap-2 mb-2 hover:bg-zinc-700/90 transition text-white font-bold bg-zinc-700;
+  }
+  .zinc-xl {
+    @apply bg-zinc-700 min-w-[137px] flex items-center gap-2 hover:bg-zinc-700/90 transition text-white font-bold;
+  }
 }
 
 @layer base {

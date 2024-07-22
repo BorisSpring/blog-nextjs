@@ -1,8 +1,9 @@
-import Navigation from '@/components/navigation/Navigation';
 import type { Metadata } from 'next';
 import { Roboto } from 'next/font/google';
 import './globals.css';
 import { ClerkProvider } from '@clerk/nextjs';
+import ReactQueryProvider from '@/components/providers/ReactQueryProvider';
+
 const roboto = Roboto({
   subsets: ['latin'],
   weight: ['300', '400', '500', '700', '100'],
@@ -23,8 +24,7 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang='en'>
         <body className={roboto.className}>
-          <Navigation />
-          {children}
+          <ReactQueryProvider>{children}</ReactQueryProvider>
         </body>
       </html>
     </ClerkProvider>

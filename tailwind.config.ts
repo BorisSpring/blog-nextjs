@@ -18,6 +18,10 @@ const config = {
       },
     },
     extend: {
+      transitionProperty: {
+        width: 'width',
+        transform: 'transform',
+      },
       colors: {
         'blue-primary-dark': '#183B56',
         'blue-primary-light': '#1565D8',
@@ -62,6 +66,14 @@ const config = {
         sm: 'calc(var(--radius) - 4px)',
       },
       keyframes: {
+        'slide-in': {
+          '0%': { width: '60px' },
+          '100%': { width: '220px' },
+        },
+        'slide-out': {
+          '0%': { width: '220px' },
+          '100%': { width: '60px' },
+        },
         'accordion-down': {
           from: { height: '0' },
           to: { height: 'var(--radix-accordion-content-height)' },
@@ -74,6 +86,8 @@ const config = {
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
+        'slide-in': 'slide-in 0.5s forwards',
+        'slide-out': 'slide-out 0.5s forwards',
       },
     },
   },

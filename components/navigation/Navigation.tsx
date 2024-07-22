@@ -7,6 +7,7 @@ import { navigationLinks } from '@/lib/constants';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import MobileNav from './MobileNav';
+import { SignedIn, SignedOut, SignInButton, UserButton } from '@clerk/nextjs';
 
 const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -56,6 +57,48 @@ const Navigation = () => {
             <div className='h-[1px] mx-auto origin-center w-0 group-hover:w-full transition-all duration-300 bg-blue-primary-light' />
           </div>
         ))}
+        <SignedIn>
+          <button
+            className={cn(
+              'text-blue-primary-light flex items-center w-fit hover:text-blue-primary-light/90 transition text-xl',
+              isScrolled && 'text-white hover:text-gray-100'
+            )}
+          >
+            <div className='flex group flex-col w-fit mr-2'>
+              <Link
+                href='/dashboard'
+                className={cn(
+                  'text-blue-primary-light w-fit hover:text-blue-primary-light/90 transition text-xl',
+                  isScrolled && 'text-white hover:text-gray-100'
+                )}
+              >
+                DashBoard
+              </Link>
+              <div className='h-[1px] mx-auto origin-center w-0 group-hover:w-full transition-all duration-300 bg-blue-primary-light' />
+            </div>
+            <UserButton
+              afterSwitchSessionUrl='/'
+              appearance={{
+                elements: {
+                  avatarBox: 'size-6',
+                },
+                variables: {
+                  colorPrimary: '#1565D8',
+                },
+              }}
+            />
+          </button>
+        </SignedIn>
+        <SignedOut>
+          <button
+            className={cn(
+              'text-blue-primary-light w-fit hover:text-blue-primary-light/90 transition text-xl',
+              isScrolled && 'text-white hover:text-gray-100'
+            )}
+          >
+            <SignInButton />
+          </button>
+        </SignedOut>
       </div>
       <MobileNav isScrolled={isScrolled} />
     </nav>
